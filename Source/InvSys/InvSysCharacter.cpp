@@ -1,7 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #include "InvSysCharacter.h"
-#include "InvSysProjectile.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -10,6 +7,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+#include "DrawDebugHelpers.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -36,16 +34,20 @@ AInvSysCharacter::AInvSysCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+
+	//=================================================================
+	/** INTERACTION SYSTEM */
+	//=================================================================
+	
+	InteractionCheckFrequency = 0.1f;
+	InteractionCheckDistance = 225.0f;
+
+	BaseEyeHeight = 60.0f;
+	
 }
 
-void AInvSysCharacter::BeginPlay()
-{
-	// Call the base class  
-	Super::BeginPlay();
-}
 
 //////////////////////////////////////////////////////////////////////////// Input
-
 void AInvSysCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {	
 	// Set up action bindings
@@ -66,6 +68,87 @@ void AInvSysCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input Component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
 }
+
+
+
+void AInvSysCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
+
+void AInvSysCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (GetWorld()->TimeSince(InteractionData.LastInteractionCheckTime) > InteractionCheckFrequency)
+	{
+		PerformInteractionCheck();
+	}
+}
+
+
+void AInvSysCharacter::PerformInteractionCheck()
+{
+	InteractionData.LastInteractionCheckTime = GetWorld()->GetTimeSeconds();
+
+	FVector TraceStart{ GetPawnViewLocation() };
+	FVector TraceEnd{ TraceStart + (GetViewRotation().Vector() * InteractionCheckDistance) };
+
+	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Green, false, 1.0f, 0, 2.0f);
+
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+	FHitResult TraceHit;
+
+	if (GetWorld()->LineTraceSingleByChannel(TraceHit, TraceStart, TraceEnd, ECC_Visibility, QueryParams))
+	{
+		if (TraceHit.GetActor()->GetClass()->ImplementsInterface(UInteractionInterface::StaticClass()))
+		{
+			const float Distance = (TraceStart - TraceHit.ImpactPoint).Size();
+
+			if (TraceHit.GetActor() != InteractionData.CurrentInteractable && Distance <= InteractionCheckDistance)
+			{
+				FoundInteractable(TraceHit.GetActor());
+				return;
+			}
+
+			if (TraceHit.GetActor() == InteractionData.CurrentInteractable)
+			{
+				return;
+			}
+			
+		}
+	}
+
+	NoInteractableFound();
+}
+
+void AInvSysCharacter::FoundInteractable(AActor* NewInteractable)
+{
+	
+}
+
+void AInvSysCharacter::NoInteractableFound()
+{
+	
+}
+
+void AInvSysCharacter::BeginInteract()
+{
+	
+}
+
+void AInvSysCharacter::EndInteract()
+{
+	
+}
+
+void AInvSysCharacter::Interact()
+{
+	
+}
+
 
 
 void AInvSysCharacter::Move(const FInputActionValue& Value)
