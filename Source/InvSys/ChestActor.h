@@ -3,30 +3,29 @@
 #include "CoreMinimal.h"
 #include "InteractionInterface.h"
 #include "GameFramework/Actor.h"
-#include "InterfaceTestActor.generated.h"
+#include "ChestActor.generated.h"
 
 UCLASS()
-class INVSYS_API AInterfaceTestActor : public AActor, public IInteractionInterface
+class INVSYS_API AChestActor : public AActor, public IInteractionInterface
 {
 	GENERATED_BODY()
 	
-public:
+public:	
 	// Sets default values for this actor's properties
-	AInterfaceTestActor();
-	
-protected:
+	AChestActor();
 
-	UPROPERTY(EditAnywhere, Category = "Test Actor")
-	UStaticMeshComponent* Mesh;
+protected:
 	
+	UPROPERTY(EditAnywhere, Category = "Chest Actor")
+	UStaticMeshComponent* Mesh;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
+
 	virtual void BeginFocus() override;
 
 	virtual void EndFocus() override;

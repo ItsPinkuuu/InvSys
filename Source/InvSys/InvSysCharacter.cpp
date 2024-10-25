@@ -62,6 +62,12 @@ void AInvSysCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AInvSysCharacter::Look);
+
+		// Interact
+		// Enchanced Input Component
+		EnhancedInputComponent->BindAction(BeginInteractAction, ETriggerEvent::Started, this, &AInvSysCharacter::BeginInteract);
+		EnhancedInputComponent->BindAction(BeginInteractAction, ETriggerEvent::Completed, this, &AInvSysCharacter::EndInteract);
+		
 	}
 	else
 	{
@@ -95,8 +101,11 @@ void AInvSysCharacter::PerformInteractionCheck()
 	FVector TraceStart{ GetPawnViewLocation() };
 	FVector TraceEnd{ TraceStart + (GetViewRotation().Vector() * InteractionCheckDistance) };
 
-	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Green, false, 1.0f, 0, 2.0f);
+	
+	/** Debug the linetrace */
+	// DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Green, false, 1.0f, 0, 2.0f);
 
+	
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
 	FHitResult TraceHit;
@@ -126,27 +135,89 @@ void AInvSysCharacter::PerformInteractionCheck()
 
 void AInvSysCharacter::FoundInteractable(AActor* NewInteractable)
 {
-	
+	if (IsInteracting())
+	{
+		EndInteract();
+	}
+
+	if (InteractionData.CurrentInteractable)
+	{
+		TargetInteractable = InteractionData.CurrentInteractable;
+		TargetInteractable->EndFocus();
+	}
+
+	InteractionData.CurrentInteractable = NewInteractable;
+	TargetInteractable = NewInteractable;
+
+	TargetInteractable->BeginFocus();
 }
 
 void AInvSysCharacter::NoInteractableFound()
 {
-	
+	if (IsInteracting())
+	{
+		GetWorldTimerManager().ClearTimer(TimerHandle_Interaction);
+	}
+
+	if (InteractionData.CurrentInteractable)
+	{
+		if (IsValid(TargetInteractable.GetObject()))
+		{
+			TargetInteractable->EndFocus();
+		}
+
+		// Hide interaction widget on the HUD
+
+		InteractionData.CurrentInteractable = nullptr;
+		TargetInteractable = nullptr;
+	}
 }
 
 void AInvSysCharacter::BeginInteract()
 {
-	
+	// Verify nothing has changed with the interactable state since beginning interaction
+	PerformInteractionCheck();
+
+	if (InteractionData.CurrentInteractable)
+	{
+		if (IsValid(TargetInteractable.GetObject()))
+		{
+			TargetInteractable->BeginInteract();
+
+			if (FMath::IsNearlyZero(TargetInteractable->InteractableData.InteractionDuration, 0.1f))
+			{
+				Interact();
+			} else
+			{
+				GetWorldTimerManager().SetTimer(TimerHandle_Interaction,
+					this, &AInvSysCharacter::Interact,
+					TargetInteractable->InteractableData.InteractionDuration, false);
+			}
+		}
+	}
 }
 
 void AInvSysCharacter::EndInteract()
 {
-	
+	if (IsInteracting())
+	{
+		GetWorldTimerManager().ClearTimer(TimerHandle_Interaction);
+
+		if (IsValid(TargetInteractable.GetObject()))
+		{
+			TargetInteractable->EndInteract();
+		}
+	}
 }
 
 void AInvSysCharacter::Interact()
 {
-	
+	GetWorldTimerManager().ClearTimer(TimerHandle_Interaction);
+
+	if (IsValid(TargetInteractable.GetObject()))
+	{
+		TargetInteractable->Interact();
+	}
 }
 
 

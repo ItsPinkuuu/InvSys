@@ -54,6 +54,8 @@ public:
 	/** FUNCTIONS */
 	//=================================================================
 
+	FORCEINLINE bool IsInteracting() const { return GetWorldTimerManager().IsTimerActive(TimerHandle_Interaction); }
+
 	/** Returns Mesh1P subobject **/
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
@@ -85,6 +87,14 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* MoveAction;
 
+	/** Begin Interact Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* BeginInteractAction;
+	
+	/** End Interact Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* EndInteractAction;
+
 	UPROPERTY(VisibleAnywhere, Category = "Character | Interaction")
 	TScriptInterface<IInteractionInterface> TargetInteractable;
 
@@ -92,7 +102,7 @@ protected:
 
 	float InteractionCheckDistance;
 
-	FTimerHandle TimeHandle_Interaction;
+	FTimerHandle TimerHandle_Interaction;
 
 	FInteractionData InteractionData;
 
@@ -115,6 +125,7 @@ protected:
 	void EndInteract();
 
 	void Interact();
+
 	
 	virtual void BeginPlay();
 	
