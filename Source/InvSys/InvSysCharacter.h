@@ -67,7 +67,7 @@ public:
 	
 protected:
 	
-	//=================================================================
+	// =================================================================
 	/** PROPERTIES & VARIABLES */
 	//=================================================================
 
@@ -87,13 +87,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* MoveAction;
 
-	/** Begin Interact Input Action */
+	/** Interact Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
-	UInputAction* BeginInteractAction;
+	UInputAction* InteractAction;
+
 	
-	/** End Interact Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
-	UInputAction* EndInteractAction;
 
 	UPROPERTY(VisibleAnywhere, Category = "Character | Interaction")
 	TScriptInterface<IInteractionInterface> TargetInteractable;

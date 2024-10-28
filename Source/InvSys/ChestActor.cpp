@@ -54,7 +54,7 @@ void AChestActor::EndInteract()
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("End Interaction"));
 }
 
-void AChestActor::Interact()
+void AChestActor::Interact(AInvSysCharacter* PlayerCharacter)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Interacting"));
 }

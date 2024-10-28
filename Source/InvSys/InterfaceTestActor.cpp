@@ -49,16 +49,16 @@ void AInterfaceTestActor::EndFocus()
 
 void AInterfaceTestActor::BeginInteract()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Begin Interaction"));
+	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Begin Interaction"));
+}
+
+void AInterfaceTestActor::Interact(AInvSysCharacter* PlayerCharacter)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("Interacting"));
 }
 
 void AInterfaceTestActor::EndInteract()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("End Interaction"));
-}
-
-void AInterfaceTestActor::Interact()
-{
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Interacting"));
+	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, TEXT("End Interaction"));
 }
 

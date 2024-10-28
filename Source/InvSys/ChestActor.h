@@ -34,5 +34,5 @@ protected:
 
 	virtual void EndInteract() override;
 
-	virtual void Interact() override;
+	virtual void Interact(AInvSysCharacter* PlayerCharacter) override;
 };

@@ -65,8 +65,8 @@ void AInvSysCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 		// Interact
 		// Enchanced Input Component
-		EnhancedInputComponent->BindAction(BeginInteractAction, ETriggerEvent::Started, this, &AInvSysCharacter::BeginInteract);
-		EnhancedInputComponent->BindAction(BeginInteractAction, ETriggerEvent::Completed, this, &AInvSysCharacter::EndInteract);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AInvSysCharacter::BeginInteract);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AInvSysCharacter::EndInteract);
 		
 	}
 	else
@@ -199,14 +199,12 @@ void AInvSysCharacter::BeginInteract()
 
 void AInvSysCharacter::EndInteract()
 {
-	if (IsInteracting())
-	{
-		GetWorldTimerManager().ClearTimer(TimerHandle_Interaction);
+	
+	GetWorldTimerManager().ClearTimer(TimerHandle_Interaction);
 
-		if (IsValid(TargetInteractable.GetObject()))
-		{
-			TargetInteractable->EndInteract();
-		}
+	if (IsValid(TargetInteractable.GetObject()))
+	{
+		TargetInteractable->EndInteract();
 	}
 }
 
@@ -216,7 +214,7 @@ void AInvSysCharacter::Interact()
 
 	if (IsValid(TargetInteractable.GetObject()))
 	{
-		TargetInteractable->Interact();
+		TargetInteractable->Interact(this);
 	}
 }
 
