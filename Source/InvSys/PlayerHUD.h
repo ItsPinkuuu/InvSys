@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InteractionInterface.h"
 #include "GameFramework/HUD.h"
 #include "PlayerHUD.generated.h"
 
@@ -24,8 +25,28 @@ public:
 	bool bIsMenuVisible;
 
 
-protected:
+
+	void DisplayMenu();
+
+	void HideMenu();
 
 	
+	void ShowInteractionWidget();
+
+	void HideInteractionWidget();
+
+	void UpdateInteractionWidget( const FInteractableData* InteractableData );
+
+protected:
+
+	UPROPERTY()
+	UMainMenu* MainMenuWidget;
+
+	UPROPERTY()
+	UInteractionWidget* InteractionWidget;
+	
+	
+	
+	virtual void BeginPlay() override;
 	
 };
