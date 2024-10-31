@@ -1,21 +1,21 @@
-#include "MainMenu.h"
+#include "InventoryMenu.h"
 #include "InvSysCharacter.h"
 
 
 
-void UMainMenu::NativeOnInitialized()
+void UInventoryMenu::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
 }
 
-void UMainMenu::NativeConstruct()
+void UInventoryMenu::NativeConstruct()
 {
 	Super::NativeConstruct();
 
 	PlayerCharacter = Cast<AInvSysCharacter>(GetOwningPlayerPawn());
 }
 
-bool UMainMenu::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
+bool UInventoryMenu::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
 	UDragDropOperation* InOperation)
 {
 	return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);

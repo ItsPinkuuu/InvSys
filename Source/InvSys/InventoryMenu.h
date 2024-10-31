@@ -2,13 +2,13 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "MainMenu.generated.h"
+#include "InventoryMenu.generated.h"
 
 
 class AInvSysCharacter;
 
 UCLASS()
-class INVSYS_API UMainMenu : public UUserWidget
+class INVSYS_API UInventoryMenu : public UUserWidget
 {
 	GENERATED_BODY()
 

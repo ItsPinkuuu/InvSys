@@ -19,6 +19,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Chest Actor")
 	UStaticMeshComponent* Mesh;
 
+	UPROPERTY(EditInstanceOnly, Category = "Chest Actor")
+	FInteractableData InstanceInteractableData;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	

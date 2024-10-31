@@ -6,8 +6,9 @@
 #include "PlayerHUD.generated.h"
 
 
+
 class UInteractionWidget;
-class UMainMenu;
+class UInventoryMenu;
 
 UCLASS()
 class INVSYS_API APlayerHUD : public AHUD
@@ -17,7 +18,7 @@ class INVSYS_API APlayerHUD : public AHUD
 public:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
-	TSubclassOf<UMainMenu> MainMenuClass;
+	TSubclassOf<UInventoryMenu> InventoryMenuClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
 	TSubclassOf<UInteractionWidget> InteractionWidgetClass;
@@ -31,16 +32,16 @@ public:
 	void HideMenu();
 
 	
-	void ShowInteractionWidget();
+	void ShowInteractionWidget() const;
 
-	void HideInteractionWidget();
+	void HideInteractionWidget() const;
 
-	void UpdateInteractionWidget( const FInteractableData* InteractableData );
+	void UpdateInteractionWidget( const FInteractableData* InteractableData ) const;
 
 protected:
 
 	UPROPERTY()
-	UMainMenu* MainMenuWidget;
+	UInventoryMenu* InventoryMenuWidget;
 
 	UPROPERTY()
 	UInteractionWidget* InteractionWidget;

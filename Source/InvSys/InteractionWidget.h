@@ -21,7 +21,7 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "InteractionWidget | Player Reference" )
 	AInvSysCharacter* PlayerReference;
 
-	void UpdateWidget( const FInteractableData* InteractableData );
+	void UpdateWidget( const FInteractableData* InteractableData ) const;
 
 	
 protected:
@@ -33,7 +33,7 @@ protected:
 	UTextBlock* ActionText;
 
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget), Category = "InteractionWidget | InteractableData")
-	UTextBlock* Quantity;
+	UTextBlock* QuantityText;
 
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget), Category = "InteractionWidget | InteractableData")
 	UTextBlock* KeyPressText;

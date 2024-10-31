@@ -8,6 +8,7 @@
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
 #include "DrawDebugHelpers.h"
+#include "PlayerHUD.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -80,6 +81,9 @@ void AInvSysCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void AInvSysCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	HUD = Cast<APlayerHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+	
 }
 
 
@@ -149,6 +153,8 @@ void AInvSysCharacter::FoundInteractable(AActor* NewInteractable)
 	InteractionData.CurrentInteractable = NewInteractable;
 	TargetInteractable = NewInteractable;
 
+	HUD->UpdateInteractionWidget(&TargetInteractable->InteractableData);
+
 	TargetInteractable->BeginFocus();
 }
 
@@ -167,6 +173,7 @@ void AInvSysCharacter::NoInteractableFound()
 		}
 
 		// Hide interaction widget on the HUD
+		HUD->HideInteractionWidget();
 
 		InteractionData.CurrentInteractable = nullptr;
 		TargetInteractable = nullptr;

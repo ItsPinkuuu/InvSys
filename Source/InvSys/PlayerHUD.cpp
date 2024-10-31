@@ -1,28 +1,24 @@
 #include "PlayerHUD.h"
-#include "MainMenu.h"
+#include "InventoryMenu.h"
 #include "InteractionWidget.h"
 
 
-APlayerHUD::APlayerHUD()
-{
-	
-}
 
 void APlayerHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (MainMenuClass)
+	if (InventoryMenuClass)
 	{
-		MainMenuWidget = CreateWidget<UMainMenu>(GetWorld(), MainMenuClass);
-		MainMenuWidget->AddToViewport();
-		MainMenuWidget->SetVisibility(ESlateVisibility::Collapsed);
+		InventoryMenuWidget = CreateWidget<UInventoryMenu>(GetWorld(), InventoryMenuClass);
+		InventoryMenuWidget->AddToViewport(5);
+		InventoryMenuWidget->SetVisibility(ESlateVisibility::Collapsed);
 	}
 
 	if (InteractionWidgetClass)
 	{
 		InteractionWidget = CreateWidget<UInteractionWidget>(GetWorld(), InteractionWidgetClass);
-		InteractionWidget->AddToViewport();
+		InteractionWidget->AddToViewport(-1);
 		InteractionWidget->SetVisibility(ESlateVisibility::Collapsed);
 	}
 	
@@ -32,23 +28,23 @@ void APlayerHUD::BeginPlay()
 
 void APlayerHUD::DisplayMenu()
 {
-	if (MainMenuWidget)
+	if (InventoryMenuWidget)
 	{
 		bIsMenuVisible = true;
-		MainMenuWidget->SetVisibility(ESlateVisibility::Visible);
+		InventoryMenuWidget->SetVisibility(ESlateVisibility::Visible);
 	}
 }
 
 void APlayerHUD::HideMenu()
 {
-	if (MainMenuWidget)
+	if (InventoryMenuWidget)
 	{
 		bIsMenuVisible = false;
-		MainMenuWidget->SetVisibility(ESlateVisibility::Collapsed);
+		InventoryMenuWidget->SetVisibility(ESlateVisibility::Collapsed);
 	}
 }
 
-void APlayerHUD::ShowInteractionWidget()
+void APlayerHUD::ShowInteractionWidget() const
 {
 	if (InteractionWidget)
 	{
@@ -56,7 +52,7 @@ void APlayerHUD::ShowInteractionWidget()
 	}
 }
 
-void APlayerHUD::HideInteractionWidget()
+void APlayerHUD::HideInteractionWidget() const
 {
 	if (InteractionWidget)
 	{
@@ -64,7 +60,7 @@ void APlayerHUD::HideInteractionWidget()
 	}
 }
 
-void APlayerHUD::UpdateInteractionWidget(const FInteractableData* InteractableData)
+void APlayerHUD::UpdateInteractionWidget(const FInteractableData* InteractableData) const
 {
 	if (InteractionWidget)
 	{
@@ -73,6 +69,6 @@ void APlayerHUD::UpdateInteractionWidget(const FInteractableData* InteractableDa
 			InteractionWidget->SetVisibility(ESlateVisibility::Visible);
 		}
 
-		// InteractionWidget->UpdateWidget(InteractableData);
+		InteractionWidget->UpdateWidget(InteractableData);
 	}
 }

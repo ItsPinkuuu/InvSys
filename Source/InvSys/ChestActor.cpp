@@ -16,6 +16,8 @@ AChestActor::AChestActor()
 void AChestActor::BeginPlay()
 {
 	Super::BeginPlay();
+
+	InteractableData = InstanceInteractableData;
 	
 }
 

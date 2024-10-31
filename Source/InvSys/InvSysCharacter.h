@@ -6,6 +6,7 @@
 #include "Logging/LogMacros.h"
 #include "InvSysCharacter.generated.h"
 
+class APlayerHUD;
 class UInputComponent;
 class USkeletalMeshComponent;
 class UCameraComponent;
@@ -70,6 +71,9 @@ protected:
 	// =================================================================
 	/** PROPERTIES & VARIABLES */
 	//=================================================================
+
+	UPROPERTY()
+	APlayerHUD* HUD;
 
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Mesh, meta = (AllowPrivateAccess = "true"))
