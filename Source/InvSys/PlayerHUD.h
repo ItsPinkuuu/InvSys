@@ -6,7 +6,7 @@
 #include "PlayerHUD.generated.h"
 
 
-
+class UCrosshairWidget;
 class UInteractionWidget;
 class UInventoryMenu;
 
@@ -16,6 +16,9 @@ class INVSYS_API APlayerHUD : public AHUD
 	GENERATED_BODY()
 
 public:
+
+	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
+	TSubclassOf<UCrosshairWidget> CrosshairWidgetClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
 	TSubclassOf<UInventoryMenu> InventoryMenuClass;
@@ -39,6 +42,9 @@ public:
 	void UpdateInteractionWidget( const FInteractableData* InteractableData ) const;
 
 protected:
+
+	UPROPERTY()
+	UCrosshairWidget* CrosshairWidget;
 
 	UPROPERTY()
 	UInventoryMenu* InventoryMenuWidget;

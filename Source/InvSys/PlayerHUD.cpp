@@ -1,4 +1,6 @@
 #include "PlayerHUD.h"
+
+#include "CrosshairWidget.h"
 #include "InventoryMenu.h"
 #include "InteractionWidget.h"
 
@@ -7,6 +9,13 @@
 void APlayerHUD::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (CrosshairWidgetClass)
+	{
+		CrosshairWidget = CreateWidget<UCrosshairWidget>(GetWorld(), CrosshairWidgetClass);
+		CrosshairWidget->AddToViewport(-1);
+		CrosshairWidget->SetVisibility(ESlateVisibility::Visible);
+	}
 
 	if (InventoryMenuClass)
 	{
