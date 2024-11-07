@@ -8,6 +8,7 @@
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
 #include "DrawDebugHelpers.h"
+#include "InventoryComponent.h"
 #include "PlayerHUD.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -35,6 +36,13 @@ AInvSysCharacter::AInvSysCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+	
+	/** PLAYER INVENTORY */
+
+	PlayerInventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("PlayerInventory"));
+	PlayerInventory->SetSlotsCapacity(20);
+	PlayerInventory->SetWeightCapacity(50.0f);
+
 
 	//=================================================================
 	/** INTERACTION SYSTEM */
@@ -46,6 +54,7 @@ AInvSysCharacter::AInvSysCharacter()
 	BaseEyeHeight = 60.0f;
 	
 }
+
 
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -222,6 +231,14 @@ void AInvSysCharacter::Interact()
 	if (IsValid(TargetInteractable.GetObject()))
 	{
 		TargetInteractable->Interact(this);
+	}
+}
+
+void AInvSysCharacter::UpdateInteractionWidget() const
+{
+	if (IsValid(TargetInteractable.GetObject()))
+	{
+		HUD->UpdateInteractionWidget(&TargetInteractable->InteractableData);
 	}
 }
 

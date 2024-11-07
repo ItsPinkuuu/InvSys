@@ -5,7 +5,8 @@
 #include "Data/ItemDataStructs.h"
 #include "ItemBase.generated.h"
 
-/** */
+class UInventoryComponent;
+
 UCLASS()
 class INVSYS_API UItemBase : public UObject
 {
@@ -21,8 +22,8 @@ public:
 	
 	// class ItemDataStruct* itemDataStruct;
 
-	// UPROPERTY()
-	// UInventoryComponent* OwningInventory;
+	UPROPERTY()
+	UInventoryComponent* OwningInventory;
 	
 	UPROPERTY(VisibleAnywhere, Category = "Item")
 	FName ID;
@@ -48,14 +49,20 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Item")
 	FItemAssetData ItemAssetData;
 
+	bool bIsCopy;
+
+	bool bIsPickup;
+
 
 	//=================================================================
 	/** FUNCTIONS */
 	//=================================================================
+	
+	UItemBase();
 
 
 	
-	UItemBase();
+	void ResetItemFlags(); 
 
 	UFUNCTION(Category = "Item")
 	UItemBase* CreateItemCopy() const;

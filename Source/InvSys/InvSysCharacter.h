@@ -6,6 +6,7 @@
 #include "Logging/LogMacros.h"
 #include "InvSysCharacter.generated.h"
 
+class UInventoryComponent;
 class APlayerHUD;
 class UInputComponent;
 class USkeletalMeshComponent;
@@ -54,6 +55,7 @@ public:
 	//=================================================================
 	/** FUNCTIONS */
 	//=================================================================
+	AInvSysCharacter();
 
 	FORCEINLINE bool IsInteracting() const { return GetWorldTimerManager().IsTimerActive(TimerHandle_Interaction); }
 
@@ -61,9 +63,11 @@ public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
-	
-	AInvSysCharacter();
 
+	FORCEINLINE UInventoryComponent* GetInventory() const { return PlayerInventory; }
+
+	void UpdateInteractionWidget() const;
+	
 
 	
 protected:
@@ -99,6 +103,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Character | Interaction")
 	TScriptInterface<IInteractionInterface> TargetInteractable;
+
+	UPROPERTY(VisibleAnywhere, Category = "Character | Inventory")
+	UInventoryComponent* PlayerInventory;
 
 	float InteractionCheckFrequency;
 
