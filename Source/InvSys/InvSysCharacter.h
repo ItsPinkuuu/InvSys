@@ -99,6 +99,10 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* InteractAction;
 
+	/** Open Inventory Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* OpenInvAction;
+
 	
 
 	UPROPERTY(VisibleAnywhere, Category = "Character | Interaction")
@@ -122,6 +126,8 @@ protected:
 	/**=================================================================*/
 	
 	virtual void Tick(float DeltaTime) override;
+
+	void ToggleMenu();
 
 	void PerformInteractionCheck();
 

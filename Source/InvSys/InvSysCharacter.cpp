@@ -77,6 +77,9 @@ void AInvSysCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		// Enchanced Input Component
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AInvSysCharacter::BeginInteract);
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AInvSysCharacter::EndInteract);
+
+		// Open Inventory
+		EnhancedInputComponent->BindAction(OpenInvAction, ETriggerEvent::Started, this, &AInvSysCharacter::ToggleMenu);
 		
 	}
 	else
@@ -104,6 +107,11 @@ void AInvSysCharacter::Tick(float DeltaTime)
 	{
 		PerformInteractionCheck();
 	}
+}
+
+void AInvSysCharacter::ToggleMenu()
+{
+	HUD->ToggleMenu();
 }
 
 
