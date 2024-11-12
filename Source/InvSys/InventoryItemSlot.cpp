@@ -1,7 +1,10 @@
 #include "InventoryItemSlot.h"
 
 #include "InventoryTooltip.h"
-
+#include "ItemBase.h"
+#include "Components/Border.h"
+#include "Components/Image.h"
+#include "Components/TextBlock.h"
 
 
 void UInventoryItemSlot::NativeOnInitialized()
@@ -19,6 +22,40 @@ void UInventoryItemSlot::NativeOnInitialized()
 void UInventoryItemSlot::NativeConstruct()
 {
 	Super::NativeConstruct();
+
+	if (ItemReference)
+	{
+		switch (ItemReference->ItemQuality)
+		{
+		case EItemQuality::Common:
+			ItemBorder->SetBrushColor(FLinearColor::Gray);
+			break;
+		case EItemQuality::Uncommon:
+			ItemBorder->SetBrushColor(FLinearColor::White);
+			break;
+		case EItemQuality::Rare:
+			ItemBorder->SetBrushColor(FLinearColor::Green);
+			break;
+		case EItemQuality::Epic:
+			ItemBorder->SetBrushColor(FLinearColor::Blue);
+			break;
+		case EItemQuality::Legendary:
+			ItemBorder->SetBrushColor(FLinearColor(100.f, 65.0f, 0.0f, 1.0f));
+			break;
+
+		default: ;
+		}
+
+		ItemIcon->SetBrushFromTexture(ItemReference->ItemAssetData.Icon);
+
+		if (ItemReference->ItemNumericData.bIsStackable)
+		{
+			ItemQuantity->SetText(FText::AsNumber(ItemReference->Quantity));
+		} else
+		{
+			ItemQuantity->SetVisibility(ESlateVisibility::Collapsed);
+		}
+	}
 }
 
 FReply UInventoryItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)

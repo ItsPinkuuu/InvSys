@@ -31,7 +31,7 @@ void UInventoryPanel::SetInfoText() const
 		InventoryReference->GetInventoryTotalWeight(), InventoryReference->GetWeightCapacity()));
 
 	CapacityInfo->SetText(FText::Format(FText::FromString("{0}/{1}"),
-		InventoryReference->GetInventoryContents(), InventoryReference->GetSlotsCapacity()));
+		InventoryReference->GetInventoryContents().Num(), InventoryReference->GetSlotsCapacity()));
 }
 
 void UInventoryPanel::RefreshInventory()
