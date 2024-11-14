@@ -137,7 +137,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Inventory")
 	TArray<TObjectPtr<UItemBase>> InventoryContents;
 
-	FItemAddResult HandleNonStackableItems(UItemBase* ItemIn, int32 RequestedAddAmount);
+	FItemAddResult HandleNonStackableItems(UItemBase* ItemIn);
 
 	int32 HandleStackableItems(UItemBase* InputItem, int32 RequestedAddAmount);
 

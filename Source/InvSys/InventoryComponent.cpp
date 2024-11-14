@@ -94,14 +94,14 @@ int32 UInventoryComponent::RemoveAmountOfItem(UItemBase* ItemIn, int32 DesiredAm
 
 void UInventoryComponent::SplitExistingStack(UItemBase* ItemIn, const int32 AmountToSplit)
 {
-	if (!(InventoryContents.Num() + 1 > InventorySlotsCapacity))
+	if (InventoryContents.Num() + 1 <= InventorySlotsCapacity)
 	{
 		RemoveAmountOfItem(ItemIn, AmountToSplit);
 		AddNewItem(ItemIn, AmountToSplit);
 	}
 }
 
-FItemAddResult UInventoryComponent::HandleNonStackableItems(UItemBase* InputItem, int32 RequestedAddAmount)
+FItemAddResult UInventoryComponent::HandleNonStackableItems(UItemBase* InputItem)
 {
 	// Check if in the input item has valid weight
 	if (FMath::IsNearlyZero(InputItem->GetItemSingleWeight()) || InputItem->GetItemSingleWeight() < 0)
@@ -124,15 +124,15 @@ FItemAddResult UInventoryComponent::HandleNonStackableItems(UItemBase* InputItem
 			FText::FromString("Could not add {0} to the inventory. All inventory slots are full."), InputItem->ItemTextData.Name));
 	}
 
-	AddNewItem(InputItem, RequestedAddAmount);
+	AddNewItem(InputItem, 1);
 	
-	return FItemAddResult::AddedAll(RequestedAddAmount, FText::Format(
-		FText::FromString("Successfully added {0} {1} to the inventory."), RequestedAddAmount, InputItem->ItemTextData.Name));
+	return FItemAddResult::AddedAll(1, FText::Format(
+		FText::FromString("Successfully added a single {0} to the inventory."), InputItem->ItemTextData.Name));
 }
 
 int32 UInventoryComponent::HandleStackableItems(UItemBase* ItemIn, int32 RequestedAddAmount)
 {
-	return 0;	
+	return 0;
 }
 
 FItemAddResult UInventoryComponent::HandleAddItem(UItemBase* InputItem)
@@ -142,9 +142,9 @@ FItemAddResult UInventoryComponent::HandleAddItem(UItemBase* InputItem)
 		const int32 InitialRequestedAddAmount = InputItem->Quantity;
 
 		// Handle non-stackable items
-		if (InputItem->ItemNumericData.bIsStackable)
+		if (!InputItem->ItemNumericData.bIsStackable)
 		{
-			return HandleNonStackableItems(InputItem, InitialRequestedAddAmount);
+			return HandleNonStackableItems(InputItem);
 		}
 
 		// Handle stackable items
@@ -154,7 +154,8 @@ FItemAddResult UInventoryComponent::HandleAddItem(UItemBase* InputItem)
 		{
 			return FItemAddResult::AddedAll(InitialRequestedAddAmount, FText::Format(
 				FText::FromString("Successfully added {0} {1} to the inventory."),
-				InitialRequestedAddAmount, InputItem->ItemTextData.Name));
+				InitialRequestedAddAmount,
+				InputItem->ItemTextData.Name));
 		}
 
 		if (StackableAmountAdded < InitialRequestedAddAmount && StackableAmountAdded > 0)

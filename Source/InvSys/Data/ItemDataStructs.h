@@ -40,9 +40,6 @@ struct FItemStatistics
 
 	UPROPERTY(EditAnywhere)
 	float RestorationAmount;
-	
-	UPROPERTY(EditAnywhere)
-	float SellValue;
 };
 
 USTRUCT()

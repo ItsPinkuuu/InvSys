@@ -5,10 +5,27 @@
 #include "DragItemVisual.generated.h"
 
 
+class UTextBlock;
+class UImage;
+class UBorder;
 
 UCLASS()
 class INVSYS_API UDragItemVisual : public UUserWidget
 {
 	GENERATED_BODY()
+
+
+protected:
+
+	
+	UPROPERTY(VisibleAnywhere, Category = "Drag Item Visual", meta=(BindWidget))
+	UBorder* ItemBorder;
+
+	UPROPERTY(VisibleAnywhere, Category = "Drag Item Visual", meta=(BindWidget))
+	UImage* ItemIcon;
+
+	UPROPERTY(VisibleAnywhere, Category = "Drag Item Visual", meta=(BindWidget))
+	UTextBlock* ItemQuantity;
+
 	
 };

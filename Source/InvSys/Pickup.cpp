@@ -92,37 +92,37 @@ void APickup::Interact(AInvSysCharacter* PlayerCharacter)
 
 void APickup::TakePickup(const AInvSysCharacter* Taker)
 {
-	if (IsPendingKillPending())
+	if (!IsPendingKillPending())
 	{
-		return;
-	}
-
-	if (!ItemReference)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Pickup internal item reference was somehow null!"));
-	}
-
-	if (UInventoryComponent* PlayerInventory = Taker->GetInventory())
-	{
-		const FItemAddResult AddResult = PlayerInventory->HandleAddItem(ItemReference);
-
-		switch (AddResult.OperationResult)
+		if (ItemReference)
 		{
-		case EItemAddResult::IAR_NoItemAdded:
-			break;
-		case EItemAddResult::IAR_PartialAmountItemAdded:
-			UpdateInteractableData();
-			Taker->UpdateInteractionWidget();
-			break;
-		case EItemAddResult::IAR_AllItemAdded:
-			Destroy();
-			break;
-		}
+			if (UInventoryComponent* PlayerInventory = Taker->GetInventory())
+			{
+				const FItemAddResult AddResult = PlayerInventory->HandleAddItem(ItemReference);
 
-		UE_LOG(LogTemp, Warning, TEXT("&s"), *AddResult.ResultMessage.ToString());
-	} else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Player inventory component is null!"));
+				switch (AddResult.OperationResult)
+				{
+				case EItemAddResult::IAR_NoItemAdded:
+					break;
+				case EItemAddResult::IAR_PartialAmountItemAdded:
+					UpdateInteractableData();
+					Taker->UpdateInteractionWidget();
+					break;
+				case EItemAddResult::IAR_AllItemAdded:
+					Destroy();
+					break;
+				}
+
+				UE_LOG(LogTemp, Warning, TEXT("&s"), *AddResult.ResultMessage.ToString());
+			} else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Player inventory component is null!"));
+			}
+		
+		} else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Pickup internal item reference was somehow null!"));
+		}
 	}
 	
 }
