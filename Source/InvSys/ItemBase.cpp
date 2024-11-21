@@ -30,19 +30,24 @@ UItemBase* UItemBase::CreateItemCopy() const
 	return ItemCopy;
 }
 
-void UItemBase::SetQuantity(int32 NewQuantity)
+void UItemBase::SetQuantity( const int32 NewQuantity)
 {
-	if(NewQuantity != Quantity)
+	if (NewQuantity != this->Quantity)
 	{
-		Quantity = FMath::Clamp(NewQuantity, 0, ItemNumericData.bIsStackable ? ItemNumericData.MaxStackSize : 1);
+		Quantity = FMath::Clamp(NewQuantity,
+			0,
+			this->ItemNumericData.bIsStackable ? this->ItemNumericData.MaxStackSize : 1);
 
-		 if (OwningInventory)
-		 {
-		 	if (Quantity <= 0)
-		 	{
-				OwningInventory->RemoveSingleInstanceOfItem(this);
-		 	}
-		 }
+		if (this->OwningInventory)
+		{
+			if (this->Quantity <= 0)
+			{
+				this->OwningInventory->RemoveSingleInstanceOfItem(this);
+			}
+		} else
+		{
+			UE_LOG(LogTemp, Error, TEXT("ItemBase OwningInventory was null!"));
+		}
 	}
 	
 }

@@ -40,7 +40,7 @@ void UInventoryItemSlot::NativeConstruct()
 			ItemBorder->SetBrushColor(FLinearColor::Blue);
 			break;
 		case EItemQuality::Legendary:
-			ItemBorder->SetBrushColor(FLinearColor(100.f, 65.0f, 0.0f, 1.0f));
+			ItemBorder->SetBrushColor(FLinearColor(0.9725490196078431f, 0.7843137254901961f, 0.8627450980392157f, 1.0f));
 			break;
 
 		default: ;

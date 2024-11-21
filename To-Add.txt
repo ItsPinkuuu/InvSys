@@ -1,0 +1,14 @@
+Step one: Make it work.
+
+Quality Of Life:
+- Sorting Items by ~
+- Different ways to drop - Drag out from window, right click to drop all/x amount
+- Quickly move items from other inventories (shift+click)
+
+Juice On UI:
+- Small animations
+- Feedback - Selected item, etc.
+- Item Log - Small text saying "Picked up x"
+
+
+Small world to present everything in

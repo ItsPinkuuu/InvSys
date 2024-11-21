@@ -111,6 +111,8 @@ void APickup::TakePickup(const AInvSysCharacter* Taker)
 				case EItemAddResult::IAR_AllItemAdded:
 					Destroy();
 					break;
+				default:
+					break;
 				}
 
 				UE_LOG(LogTemp, Warning, TEXT("&s"), *AddResult.ResultMessage.ToString());

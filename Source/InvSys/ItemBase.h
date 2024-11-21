@@ -77,7 +77,7 @@ public:
 	FORCEINLINE bool IsFullItemStack() const { return Quantity == ItemNumericData.MaxStackSize; }
 
 	UFUNCTION(Category = "Item")
-	void SetQuantity(int32 NewQuantity);
+	void SetQuantity( const int32 NewQuantity);
 
 	UFUNCTION(Category = "Item")
 	virtual void Use(AInvSysCharacter* InvSysCharacter);
