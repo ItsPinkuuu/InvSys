@@ -163,10 +163,9 @@ int32 UInventoryComponent::HandleStackableItems(UItemBase* ItemIn, int32 Request
 			AmountToDistribute -= WeightLimitAddAmount;
 
 			ItemIn->SetQuantity(AmountToDistribute);
-
-			// TODO: Refine this logic since going over weight capacity should not ever be possible
+			
 			// if max weight capacity is reached, no need to run the loop again
-			if (InventoryTotalWeight >= InventoryWeightCapacity)
+			if (InventoryTotalWeight + ExistingItemStack->GetItemSingleWeight() > InventoryWeightCapacity)
 			{
 				OnInventoryUpdated.Broadcast();
 				return RequestedAddAmount - AmountToDistribute;
@@ -182,6 +181,7 @@ int32 UInventoryComponent::HandleStackableItems(UItemBase* ItemIn, int32 Request
 				return RequestedAddAmount - AmountToDistribute;
 			}
 
+			// reached if there is a partial stack but none if it can be added at all
 			return 0;
 		}
 
@@ -220,10 +220,13 @@ int32 UInventoryComponent::HandleStackableItems(UItemBase* ItemIn, int32 Request
 			AddNewItem(ItemIn, AmountToDistribute);
 			return RequestedAddAmount;
 		}
+
+		// reached if there is free item slots, but no remaining weight capacity
+		return RequestedAddAmount - AmountToDistribute;
 	}
 
-	OnInventoryUpdated.Broadcast();
-	return RequestedAddAmount - AmountToDistribute;
+	// can only be reached if there is no existing stack and no extra capacity slots
+	return 0;
 }
 
 FItemAddResult UInventoryComponent::HandleAddItem(UItemBase* InputItem)

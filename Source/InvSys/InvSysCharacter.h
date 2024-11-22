@@ -6,6 +6,7 @@
 #include "Logging/LogMacros.h"
 #include "InvSysCharacter.generated.h"
 
+class UItemBase;
 class UInventoryComponent;
 class APlayerHUD;
 class UInputComponent;
@@ -67,6 +68,8 @@ public:
 	FORCEINLINE UInventoryComponent* GetInventory() const { return PlayerInventory; }
 
 	void UpdateInteractionWidget() const;
+
+	void DropItem(UItemBase* ItemToDrop, const int32 QuantityToDrop);
 	
 
 	
