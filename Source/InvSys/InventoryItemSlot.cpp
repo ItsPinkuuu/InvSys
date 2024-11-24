@@ -33,16 +33,16 @@ void UInventoryItemSlot::NativeConstruct()
 			ItemBorder->SetBrushColor(FLinearColor::Gray);
 			break;
 		case EItemQuality::Uncommon:
-			ItemBorder->SetBrushColor(FLinearColor::White);
+			ItemBorder->SetBrushColor(FLinearColor(0.6549019607843137f, 0.8313725490196079f, 0.5372549019607843f));
 			break;
 		case EItemQuality::Rare:
-			ItemBorder->SetBrushColor(FLinearColor(0.6627450980392157f, 0.8666666666666667f, 0.6941176470588235f));
-			break;
-		case EItemQuality::Epic:
 			ItemBorder->SetBrushColor(FLinearColor(0.40784313725490196f, 0.5607843137254902f, 0.8980392156862745f));
 			break;
+		case EItemQuality::Epic:
+			ItemBorder->SetBrushColor(FLinearColor(0.5843137254901961f, 0.49019607843137253f, 0.6784313725490196f));
+			break;
 		case EItemQuality::Legendary:
-			ItemBorder->SetBrushColor(FLinearColor(1.0f, 0.47058823529411764f, 0.7686274509803922f, 1.0f));
+			ItemBorder->SetBrushColor(FLinearColor(0.8313725490196079f, 0.6862745098039216f, 0.21568627450980393f));
 			break;
 
 		default: ;
