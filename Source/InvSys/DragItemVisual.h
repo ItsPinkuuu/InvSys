@@ -5,6 +5,7 @@
 #include "DragItemVisual.generated.h"
 
 
+class UItemBase;
 class UTextBlock;
 class UImage;
 class UBorder;
@@ -17,6 +18,9 @@ class INVSYS_API UDragItemVisual : public UUserWidget
 
 public:
 
+	FORCEINLINE void SetItemReference(UItemBase* ItemIn) { ItemReference = ItemIn; }
+	FORCEINLINE UItemBase* GetItemReference() const { return ItemReference; }
+
 	
 	UPROPERTY(VisibleAnywhere, Category = "Drag Item Visual", meta=(BindWidget))
 	UBorder* ItemBorder;
@@ -27,5 +31,10 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Drag Item Visual", meta=(BindWidget))
 	UTextBlock* ItemQuantity;
 
+protected:
 	
+	UPROPERTY()
+	UItemBase* ItemReference;
+
+	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 };

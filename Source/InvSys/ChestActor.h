@@ -5,6 +5,8 @@
 #include "GameFramework/Actor.h"
 #include "ChestActor.generated.h"
 
+class UInventoryComponent;
+
 UCLASS()
 class INVSYS_API AChestActor : public AActor, public IInteractionInterface
 {
@@ -14,6 +16,8 @@ public:
 	// Sets default values for this actor's properties
 	AChestActor();
 
+	FORCEINLINE UInventoryComponent* GetInventory() const { return Inventory; }
+
 protected:
 	
 	UPROPERTY(EditAnywhere, Category = "Chest Actor")
@@ -21,6 +25,9 @@ protected:
 
 	UPROPERTY(EditInstanceOnly, Category = "Chest Actor")
 	FInteractableData InstanceInteractableData;
+
+	UPROPERTY(VisibleAnywhere, Category = "Character | Inventory")
+	UInventoryComponent* Inventory;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -70,7 +70,7 @@ FReply UInventoryItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, 
 	}
 
 	// submenu on right click will happen here
-	return Reply.Unhandled(); // temporary
+	return Reply.Unhandled(); 
 }
 
 void UInventoryItemSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
@@ -101,7 +101,7 @@ void UInventoryItemSlot::NativeOnDragDetected(const FGeometry& InGeometry, const
 		DragItemOperation->DefaultDragVisual = DragVisual;
 		DragItemOperation->Pivot = EDragPivot::CenterCenter;
 
-		OutOperation = DragItemOperation;
+		OutOperation = DragItemOperation; 
 	}
 }
 
