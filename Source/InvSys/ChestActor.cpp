@@ -1,5 +1,8 @@
 #include "ChestActor.h"
 
+#include "InventoryComponent.h"
+#include "PlayerHUD.h"
+
 // Sets default values
 AChestActor::AChestActor()
 {
@@ -9,6 +12,13 @@ AChestActor::AChestActor()
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	SetRootComponent(Mesh);
+
+
+	/** INVENTORY */
+
+	Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
+	Inventory->SetSlotsCapacity(20);
+	Inventory->SetWeightCapacity(50.0f);
 	
 }
 
@@ -48,16 +58,17 @@ void AChestActor::EndFocus()
 
 void AChestActor::BeginInteract()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Begin Interaction"));
-}
-
-void AChestActor::EndInteract()
-{
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("End Interaction"));
+	HUD->ToggleMenu();
 }
 
 void AChestActor::Interact(AInvSysCharacter* PlayerCharacter)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Interacting"));
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Interacting"));
+	return;
 }
 
+void AChestActor::EndInteract()
+{
+	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("End Interaction"));
+	return;
+}

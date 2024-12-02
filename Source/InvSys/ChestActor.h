@@ -5,6 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "ChestActor.generated.h"
 
+class APlayerHUD;
 class UInventoryComponent;
 
 UCLASS()
@@ -28,6 +29,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Character | Inventory")
 	UInventoryComponent* Inventory;
+
+	UPROPERTY()
+	APlayerHUD* HUD;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

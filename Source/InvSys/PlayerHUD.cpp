@@ -1,5 +1,6 @@
 #include "PlayerHUD.h"
 
+#include "ContainerInventoryPanel.h"
 #include "CrosshairWidget.h"
 #include "InventoryMenu.h"
 #include "InteractionWidget.h"
@@ -29,6 +30,13 @@ void APlayerHUD::BeginPlay()
 		InteractionWidget = CreateWidget<UInteractionWidget>(GetWorld(), InteractionWidgetClass);
 		InteractionWidget->AddToViewport(-1);
 		InteractionWidget->SetVisibility(ESlateVisibility::Collapsed);
+	}
+
+	if (ContainerInventoryPanelClass)
+	{
+		ContainerInventoryPanelWidget = CreateWidget<UContainerInventoryPanel>(GetWorld(), ContainerInventoryPanelClass);
+		ContainerInventoryPanelWidget->AddToViewport(5);
+		ContainerInventoryPanelWidget->SetVisibility(ESlateVisibility::Visible);
 	}
 	
 }

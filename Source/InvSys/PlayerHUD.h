@@ -6,6 +6,7 @@
 #include "PlayerHUD.generated.h"
 
 
+class UContainerInventoryPanel;
 class UCrosshairWidget;
 class UInteractionWidget;
 class UInventoryMenu;
@@ -25,6 +26,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
 	TSubclassOf<UInteractionWidget> InteractionWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
+	TSubclassOf<UContainerInventoryPanel> ContainerInventoryPanelClass;
 
 	bool bIsMenuVisible;
 
@@ -51,6 +55,9 @@ protected:
 
 	UPROPERTY()
 	UInteractionWidget* InteractionWidget;
+
+	UPROPERTY()
+	UContainerInventoryPanel* ContainerInventoryPanelWidget;
 	
 	
 	
