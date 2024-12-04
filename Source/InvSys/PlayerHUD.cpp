@@ -36,7 +36,7 @@ void APlayerHUD::BeginPlay()
 	{
 		ContainerInventoryPanelWidget = CreateWidget<UContainerInventoryPanel>(GetWorld(), ContainerInventoryPanelClass);
 		ContainerInventoryPanelWidget->AddToViewport(5);
-		ContainerInventoryPanelWidget->SetVisibility(ESlateVisibility::Visible);
+		ContainerInventoryPanelWidget->SetVisibility(ESlateVisibility::Collapsed);
 	}
 	
 }
@@ -61,6 +61,24 @@ void APlayerHUD::HideMenu()
 	}
 }
 
+void APlayerHUD::DisplayInventory()
+{
+	if (ContainerInventoryPanelWidget)
+	{
+		bIsInventoryVisible = true;
+		ContainerInventoryPanelWidget->SetVisibility(ESlateVisibility::Visible);
+	}
+}
+
+void APlayerHUD::HideInventory()
+{
+	if (ContainerInventoryPanelWidget)
+	{
+		bIsInventoryVisible = false;
+		ContainerInventoryPanelWidget->SetVisibility(ESlateVisibility::Collapsed);
+	}
+}
+
 void APlayerHUD::ToggleMenu()
 {
 	if (bIsMenuVisible)
@@ -70,7 +88,7 @@ void APlayerHUD::ToggleMenu()
 		const FInputModeGameOnly InputMode;
 		GetOwningPlayerController()->SetInputMode(InputMode);
 		GetOwningPlayerController()->SetShowMouseCursor(false);
-	} else
+	} else if (!bIsMenuVisible)
 	{
 		DisplayMenu();
 
@@ -78,7 +96,14 @@ void APlayerHUD::ToggleMenu()
 		GetOwningPlayerController()->SetInputMode(InputMode);
 		GetOwningPlayerController()->SetShowMouseCursor(true);
 	}
+
+	if (bIsInventoryVisible)
+	{
+		HideInventory();
+	}
 }
+
+
 
 void APlayerHUD::ShowInteractionWidget() const
 {

@@ -1,7 +1,9 @@
 #include "ChestActor.h"
 
+#include "ContainerInventoryPanel.h"
 #include "InventoryComponent.h"
 #include "PlayerHUD.h"
+#include "Components/SlateWrapperTypes.h"
 
 // Sets default values
 AChestActor::AChestActor()
@@ -21,6 +23,8 @@ AChestActor::AChestActor()
 	Inventory->SetWeightCapacity(50.0f);
 	
 }
+
+
 
 // Called when the game starts or when spawned
 void AChestActor::BeginPlay()
@@ -58,7 +62,18 @@ void AChestActor::EndFocus()
 
 void AChestActor::BeginInteract()
 {
-	HUD->ToggleMenu();
+	if (HUD->bIsMenuVisible)
+	{
+		return;
+	} else
+	{
+		HUD->ToggleMenu();
+	}
+	
+	if (!HUD->bIsInventoryVisible)
+	{
+		HUD->DisplayInventory();
+	}
 }
 
 void AChestActor::Interact(AInvSysCharacter* PlayerCharacter)

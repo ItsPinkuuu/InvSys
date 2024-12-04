@@ -32,11 +32,18 @@ public:
 
 	bool bIsMenuVisible;
 
+	bool bIsInventoryVisible;
+
 
 
 	void DisplayMenu();
 	void HideMenu();
 	void ToggleMenu();
+
+	
+	void DisplayInventory();
+	void HideInventory();
+
 
 	
 	void ShowInteractionWidget() const;
@@ -45,6 +52,7 @@ public:
 
 	void UpdateInteractionWidget( const FInteractableData* InteractableData ) const;
 
+	
 protected:
 
 	UPROPERTY()

@@ -18,6 +18,7 @@ public:
 	AChestActor();
 
 	FORCEINLINE UInventoryComponent* GetInventory() const { return Inventory; }
+	
 
 protected:
 	
@@ -32,6 +33,8 @@ protected:
 
 	UPROPERTY()
 	APlayerHUD* HUD;
+
+	
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
