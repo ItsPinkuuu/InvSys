@@ -62,10 +62,12 @@ void AChestActor::EndFocus()
 
 void AChestActor::BeginInteract()
 {
-	if (HUD->bIsMenuVisible)
-	{
-		return;
-	} else
+	return;
+}
+
+void AChestActor::Interact(AInvSysCharacter* PlayerCharacter)
+{
+	if (!HUD->bIsMenuVisible)
 	{
 		HUD->ToggleMenu();
 	}
@@ -74,12 +76,6 @@ void AChestActor::BeginInteract()
 	{
 		HUD->DisplayInventory();
 	}
-}
-
-void AChestActor::Interact(AInvSysCharacter* PlayerCharacter)
-{
-	// GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Interacting"));
-	return;
 }
 
 void AChestActor::EndInteract()
