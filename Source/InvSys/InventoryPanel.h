@@ -23,6 +23,9 @@ public:
 	UFUNCTION()
 	void RefreshInventory();
 
+	UFUNCTION()
+	void SortByID();
+
 	UPROPERTY(meta=(BindWidget))
 	UWrapBox* InventoryPanel;
 

@@ -60,8 +60,19 @@ void UInventoryPanel::RefreshInventory()
 	}
 }
 
+void UInventoryPanel::SortByID()
+{
+	if (InventoryReference && InventorySlotClass)
+	{
+		InventoryPanel->ClearChildren();
+
+		
+	}
+}
+
+
 bool UInventoryPanel::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
-	UDragDropOperation* InOperation)
+                                   UDragDropOperation* InOperation)
 {
 	const UItemDragDropOperation* ItemDragDrop = Cast<UItemDragDropOperation>(InOperation);
 
