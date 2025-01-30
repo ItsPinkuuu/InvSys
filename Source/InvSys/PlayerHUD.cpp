@@ -97,10 +97,10 @@ void APlayerHUD::ToggleMenu()
 		GetOwningPlayerController()->SetShowMouseCursor(true);
 	}
 
-	if (bIsInventoryVisible)
-	{
-		HideInventory();
-	}
+	// if (bIsInventoryVisible)
+	// {
+	// 	HideInventory();
+	// }
 }
 
 

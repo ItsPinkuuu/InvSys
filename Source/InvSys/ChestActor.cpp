@@ -19,8 +19,8 @@ AChestActor::AChestActor()
 	/** INVENTORY */
 
 	Inventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
-	Inventory->SetSlotsCapacity(20);
-	Inventory->SetWeightCapacity(50.0f);
+	Inventory->SetSlotsCapacity(40);
+	Inventory->SetWeightCapacity(100.0f);
 	
 }
 
@@ -30,6 +30,8 @@ AChestActor::AChestActor()
 void AChestActor::BeginPlay()
 {
 	Super::BeginPlay();
+
+	HUD = Cast<APlayerHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
 
 	InteractableData = InstanceInteractableData;
 	
@@ -72,10 +74,10 @@ void AChestActor::Interact(AInvSysCharacter* PlayerCharacter)
 		HUD->ToggleMenu();
 	}
 	
-	if (!HUD->bIsInventoryVisible)
-	{
-		HUD->DisplayInventory();
-	}
+	// if (!HUD->bIsInventoryVisible)
+	// {
+	// 	HUD->DisplayInventory();
+	// }
 }
 
 void AChestActor::EndInteract()

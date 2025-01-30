@@ -2,7 +2,7 @@ Core mechanics left:
 - Container inventories - On Hold
 
 Quality Of Life:
-- Sorting Items by ~
+- Sorting Items by ~ - In Progress
 - Different ways to drop - Drag out from window, right click to drop all/x amount
 
 - Quickly move items from other inventories (shift+click) - On Hold
