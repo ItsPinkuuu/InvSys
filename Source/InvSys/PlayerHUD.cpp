@@ -4,7 +4,7 @@
 #include "CrosshairWidget.h"
 #include "InventoryMenu.h"
 #include "InteractionWidget.h"
-
+#include "GameFramework/PlayerInput.h"
 
 
 void APlayerHUD::BeginPlay()
@@ -92,7 +92,7 @@ void APlayerHUD::ToggleMenu()
 	{
 		DisplayMenu();
 
-		const FInputModeGameOnly InputMode;
+		const FInputModeGameAndUI InputMode;
 		GetOwningPlayerController()->SetInputMode(InputMode);
 		GetOwningPlayerController()->SetShowMouseCursor(true);
 	}
