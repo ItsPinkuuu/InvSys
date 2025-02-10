@@ -4,11 +4,3 @@ Capacity
 Easily switchable item for designers
 Tooltip
 Stackable Items
-
-
-
-
-
-
-
-Pos: (X=4796.194336,Y=8571.597656,Z=677.792603)
