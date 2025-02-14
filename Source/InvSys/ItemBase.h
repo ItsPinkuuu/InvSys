@@ -20,7 +20,6 @@ public:
 	//=================================================================
 
 	
-	// class ItemDataStruct* itemDataStruct;
 
 	UPROPERTY()
 	UInventoryComponent* OwningInventory;
