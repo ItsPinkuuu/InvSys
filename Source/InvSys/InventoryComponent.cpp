@@ -199,7 +199,7 @@ int32 UInventoryComponent::HandleStackableItems(UItemBase* ItemIn, int32 Request
 	// no more partial stacks found, check if a new stack can be added
 	if (InventoryContents.Num() + 1 <= InventorySlotsCapacity)
 	{
-		// attempt t add as many of the remaining item quantity that can fit inventory weight capacity
+		// attempt to add as many of the remaining item quantity that can fit inventory weight capacity
 		const int32 WeightLimitAddAmount = CalculateWeightAddAmount(ItemIn, AmountToDistribute);
 
 		if (WeightLimitAddAmount > 0)
